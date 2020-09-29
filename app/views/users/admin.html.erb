@@ -1,0 +1,24 @@
+<% @users.each do |user| %>
+
+<% if user.has_role? :poster %>
+<p>Poster: <%= user.email %></p>
+<% elsif user.has_role? :admin %>
+<p>Admin: <%= user.email %></p>
+<% else %>
+<p>Nada: <%= user.email %></p>
+<% end %>
+<%= form_with(model: user, scope: :role, url: roles_update_path, local: true) do |f| %>
+<%= f.hidden_field :user_id, value: "#{user.id}" %>
+<div class="field">
+
+  <%= f.label :poster %>
+  <%= f.check_box :poster, {}, 1, 0 %>
+  <%= f.label :admin %>
+  <%= f.check_box :admin, {}, 1, 0 %>
+</div>
+
+<%= f.submit class: "button is-link" %>
+
+
+<% end %>
+<% end %>
