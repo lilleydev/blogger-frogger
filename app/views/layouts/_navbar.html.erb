@@ -6,8 +6,10 @@
 
   <%= link_to 'Home', root_path %> |
   <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %> |
-
-
+  <%= link_to 'Edit Profile', edit_user_registration_path  %>
+  <% if current_user.has_role? :admin %>
+  <%= link_to 'Admin Stuff', '/users/admin' %>
+  <% end %>
 
 
 
