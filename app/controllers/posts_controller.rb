@@ -24,17 +24,23 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @post = current_user.posts.build(post_params)
+    # binding.pry
+    user = User.find_by(id: params['post']['user'].to_i)
+    @post = user.posts.build(title: params['post']['title']['attributes']['title'], content: params['post']['title']['attributes']['content'], mood: params['post']['title']['attributes']['mood'])
+    # binding.pry
 
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
+    render json: @post if @post.save
+    # @post = current_user.posts.build(post_params)
+
+    # respond_to do |format|
+    #   if @post.save
+    #     format.html { redirect_to @post, notice: 'Post was successfully created.' }
+    #     format.json { render :show, status: :created, location: @post }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @post.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /posts/1
