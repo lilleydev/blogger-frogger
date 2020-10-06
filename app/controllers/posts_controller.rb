@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   def create
     # binding.pry
     user = User.find_by(id: params['post']['user'].to_i)
-    @post = user.posts.build(title: params['post']['title']['attributes']['title'], content: params['post']['title']['attributes']['content'], mood: params['post']['title']['attributes']['mood'])
+    @post = user.posts.build(post_params)
     # binding.pry
 
     render json: @post if @post.save
