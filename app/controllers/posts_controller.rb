@@ -65,11 +65,14 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    # binding.pry
     @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    # respond_to do |format|
+    # respond_to do |format|
+    #   format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+    render json: params[:id]
   end
 
   private
@@ -81,7 +84,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:content, :title, :mood)
+    params.require(:post).permit(:id, :content, :title, :mood, :category)
   end
 
   def user_can
